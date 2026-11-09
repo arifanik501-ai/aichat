@@ -1,7 +1,7 @@
 # Tiny static file server for Retro Messenger (no installs needed).
 param([int]$Port = 8080, [switch]$NoBrowser)
 
-$root = Join-Path $PSScriptRoot "site"
+$root = $PSScriptRoot
 $types = @{
   ".html" = "text/html; charset=utf-8"; ".css" = "text/css; charset=utf-8"
   ".js"   = "text/javascript; charset=utf-8"; ".json" = "application/json"

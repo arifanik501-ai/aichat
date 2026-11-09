@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content">
+  <meta name="theme-color" content="#1b1f17">
+  <title>Coin Toss</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Screen 0: Coin toss game -->
+  <main id="game" class="screen center">
+    <h1 class="title">COIN TOSS</h1>
+    <p class="subtitle">Call it. Flip it. <span id="score">W 0 · L 0</span></p>
+
+    <div class="coin-wrap">
+      <div id="coin" class="coin">
+        <div class="face heads">H</div>
+        <div class="face tails">T</div>
+      </div>
+    </div>
+
+    <div class="picks" role="group" aria-label="Your call">
+      <button type="button" class="pick active" data-pick="heads" aria-pressed="true">HEADS</button>
+      <button type="button" class="pick" data-pick="tails" aria-pressed="false">TAILS</button>
+    </div>
+    <button type="button" id="toss-btn" class="toss-btn">TOSS</button>
+
+    <p id="result" class="result" aria-live="polite">&nbsp;</p>
+
+    <form id="code-form" class="code-form" autocomplete="off" hidden>
+      <label for="code-input">🎁 FREE REDEEM CODE</label>
+      <div class="row">
+        <input id="code-input" type="text" maxlength="12" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Get free coins">
+        <button type="submit">REDEEM</button>
+      </div>
+      <p id="code-error" class="error" role="alert"></p>
+    </form>
+  </main>
+
+  <!-- Screen 1: Choose user -->
+  <main id="landing" class="screen center" hidden>
+    <h1 class="title">RETRO MESSENGER</h1>
+    <p class="subtitle">Private messaging for two people.</p>
+
+    <div class="cards">
+      <section class="card">
+        <h2>[ ANIK ]</h2>
+        <p class="status"><span class="dot"></span>Available</p>
+        <button type="button" data-user="anik">CHAT AS ANIK</button>
+      </section>
+      <section class="card">
+        <h2>[ PRIYA ]</h2>
+        <p class="status"><span class="dot"></span>Available</p>
+        <button type="button" data-user="priya">CHAT AS PRIYA</button>
+      </section>
+    </div>
+
+    <form id="login-form" class="login" hidden>
+      <label for="password">Password for <b id="login-name"></b>:</label>
+      <div class="row">
+        <input id="password" type="password" autocomplete="current-password" required>
+        <button type="submit">ENTER</button>
+      </div>
+    </form>
+
+    <p id="landing-error" class="error" role="alert"></p>
+  </main>
+
+  <!-- Screen 2: Chat -->
+  <main id="chat" class="screen chat" hidden>
+    <button type="button" id="kill-switch" class="kill">■ KILL SWITCH</button>
+
+    <header class="chat-header">
+      <div class="header-top">
+        <span class="app-name">RETRO MESSENGER</span>
+        <button type="button" id="switch-user" class="small" title="Switch user">SWITCH USER</button>
+      </div>
+      <div class="convo">ANIK &harr; PRIYA</div>
+      <div class="meta">
+        <span>Logged in as: <b id="current-user"></b></span>
+        <span id="conn" class="conn">connecting…</span>
+      </div>
+    </header>
+
+    <ol id="messages" class="messages" aria-live="polite"></ol>
+    <p id="typing" class="typing" aria-live="polite"></p>
+
+    <form id="composer" class="composer" autocomplete="off">
+      <input id="message-input" type="text" placeholder="Type a message..." maxlength="1000" aria-label="Message">
+      <button type="submit">SEND</button>
+    </form>
+    <p id="chat-error" class="error" role="alert"></p>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

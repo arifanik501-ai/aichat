@@ -4,11 +4,10 @@ A tiny, text-only, two-person messenger (Anik ↔ Priya) built with vanilla HTML
 
 ```
 chat/
-├── site/                    # ← THE WEBSITE: upload these 4 files to GitHub
-│   ├── index.html           # both screens (landing + chat)
-│   ├── style.css            # retro terminal styling, responsive
-│   ├── app.js               # all app logic
-│   └── firebase-config.js   # ← YOUR CREDENTIALS GO HERE
+├── index.html               # ← website (these 4 files are required on GitHub)
+├── style.css                #   retro terminal styling, responsive
+├── app.js                   #   all app logic
+├── firebase-config.js       #   ← YOUR CREDENTIALS GO HERE
 ├── START.bat                # double-click to run on this PC
 ├── server.ps1               # tiny local server used by START.bat
 ├── database.rules.json      # secure rules for two authenticated users
@@ -33,7 +32,7 @@ No build step, no npm, no frameworks. Firebase is loaded from Google's CDN (modu
 
 ## 3. Insert your credentials
 
-Open **`site/firebase-config.js`** and replace every `YOUR_...` value with the values from step 1.3. Make sure `databaseURL` is the URL from step 2.3:
+Open **`firebase-config.js`** and replace every `YOUR_...` value with the values from step 1.3. Make sure `databaseURL` is the URL from step 2.3:
 
 ```js
 export const firebaseConfig = {
@@ -54,8 +53,8 @@ The Firebase web `apiKey` is not a secret. It only identifies the project. **You
 The app uses ES modules, so it has to be served over HTTP (opening `index.html` directly with `file://` will not work).
 
 - **On this PC:** double-click `START.bat`. Keep the window open while chatting.
-- **Online:** upload the 4 files inside `site/` to GitHub Pages. See `GITHUB-UPLOAD.md`.
-- Any other static host (Netlify, Firebase Hosting) works too. Deploy the `site/` folder.
+- **Online:** upload the files in this folder to GitHub Pages (at least the 4 website files). See `GITHUB-UPLOAD.md`.
+- Any other static host (Netlify, Vercel, Firebase Hosting) works too. Deploy this folder.
 
 ---
 
@@ -89,7 +88,7 @@ Set `USE_AUTH = false` and paste these rules into **Realtime Database → Rules*
 2. **Authentication → Users → Add user** twice, once for Anik and once for Priya, each with an email and a strong password.
 3. Copy each user's **User UID** from the Users table.
 4. Open `database.rules.json`, replace every `ANIK_UID` and `PRIYA_UID` (use Find & Replace) with the real UIDs, then paste the whole file into **Realtime Database → Rules → Publish**.
-5. In `site/firebase-config.js`, set:
+5. In `firebase-config.js`, set:
    ```js
    export const USE_AUTH = true;
    export const authEmails = {
@@ -113,7 +112,7 @@ What the rules enforce:
 ## Coin toss and kill switch
 
 - The app always opens on a **coin toss game**. Pick HEADS/TAILS and press TOSS. After the result, a **🎁 FREE REDEEM CODE** box appears (disguised as a game promo).
-- Enter the code (`ACCESS_CODE` in `site/firebase-config.js`, default `2645`) to open the messenger. After 3 wrong codes the box hides until the next toss. Reloading the page always goes back to the game.
+- Enter the code (`ACCESS_CODE` in `firebase-config.js`, default `2645`) to open the messenger. After 3 wrong codes the box hides until the next toss. Reloading the page always goes back to the game.
 - **■ KILL SWITCH** (above the chat): the screen goes back to the game instantly, **all messages are permanently deleted** for both people, and the other person's screen also jumps back to the game. There is no undo.
 - **Auto-lock:** if the app stays in the background (other tab or app, screen off) for `AUTO_LOCK_SECONDS` (default 60), it returns to the game. Messages are not deleted.
 - The code only hides the messenger from casual eyes.

@@ -1,0 +1,211 @@
+:root {
+  --bg: #1b1f17;
+  --panel: #23281e;
+  --text: #e8e4d0;
+  --muted: #8f927d;
+  --accent: #ffb000;
+  --mine: #9fd38a;
+  --border: #4a5040;
+  --error: #ff6b5a;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; margin: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.45 "Courier New", ui-monospace, Menlo, Consolas, monospace;
+}
+
+[hidden] { display: none !important; }
+
+button, input { font: inherit; color: inherit; }
+
+button {
+  background: var(--panel);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 8px 14px;
+  border-radius: 2px;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+button:hover, button:focus-visible { background: var(--accent); color: var(--bg); outline: none; }
+button:disabled { opacity: .5; cursor: wait; }
+button.small { padding: 2px 8px; font-size: 12px; }
+
+input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+  border-radius: 2px;
+  min-width: 0;
+  font-size: 16px; /* below 16px, iPhone Safari zooms the page on focus */
+}
+input:focus { outline: none; border-color: var(--accent); }
+
+.error { color: var(--error); font-size: 13px; margin: 8px 0 0; min-height: 1em; }
+
+/* ---------- Shared screens ---------- */
+.screen { max-width: 640px; margin: 0 auto; padding: 16px; }
+
+.center {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* ---------- Coin toss game ---------- */
+.coin-wrap { perspective: 600px; margin: 8px 0 24px; }
+
+.coin {
+  position: relative;
+  width: 132px;
+  height: 132px;
+  transform-style: preserve-3d;
+  transition: transform 900ms cubic-bezier(.2, .7, .3, 1);
+  will-change: transform;
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56px;
+  font-weight: bold;
+  color: var(--bg);
+  background: var(--accent);
+  border: 4px double var(--bg);
+  box-shadow: 0 0 0 2px var(--accent), inset 0 0 0 6px rgba(0, 0, 0, .15);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.face.tails { transform: rotateY(180deg); background: var(--mine); box-shadow: 0 0 0 2px var(--mine), inset 0 0 0 6px rgba(0, 0, 0, .15); }
+
+.picks { display: flex; gap: 8px; margin-bottom: 12px; }
+.pick { min-width: 104px; }
+.pick.active { background: var(--accent); color: var(--bg); }
+
+.toss-btn { min-width: 216px; padding: 10px; font-weight: bold; letter-spacing: 3px; }
+
+.result { min-height: 1.5em; margin: 16px 0 4px; font-weight: bold; letter-spacing: 1px; }
+.result.win { color: var(--mine); }
+.result.lose { color: var(--error); }
+
+.code-form { width: 100%; max-width: 260px; margin-top: 8px; text-align: left; }
+.code-form label { font-size: 12px; color: var(--accent); letter-spacing: 1px; }
+.code-form input { text-transform: uppercase; }
+.code-form input::placeholder { text-transform: none; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .coin { transition-duration: 200ms; }
+}
+
+.title {
+  color: var(--accent);
+  font-size: clamp(24px, 7vw, 36px);
+  letter-spacing: 4px;
+  margin: 0 0 6px;
+}
+.subtitle { color: var(--muted); margin: 0 0 28px; }
+
+.cards { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+.card {
+  flex: 1 1 220px;
+  max-width: 280px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  padding: 20px 16px;
+  box-shadow: 4px 4px 0 #000;
+}
+.card h2 { margin: 0 0 6px; font-size: 20px; letter-spacing: 2px; }
+.status { margin: 0 0 16px; color: var(--muted); font-size: 13px; }
+.dot {
+  display: inline-block; width: 8px; height: 8px;
+  background: var(--mine); margin-right: 6px;
+}
+
+.login { margin: 24px auto 0; max-width: 360px; text-align: left; }
+.row { display: flex; gap: 8px; margin-top: 6px; }
+.row input { flex: 1; }
+
+/* ---------- Chat ---------- */
+.chat {
+  height: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
+.kill {
+  width: 100%;
+  margin-bottom: 6px;
+  padding: 6px;
+  border-color: var(--error);
+  color: var(--error);
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+.kill:hover, .kill:focus-visible { background: var(--error); color: var(--bg); }
+
+.chat-header {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  padding: 8px 12px;
+}
+.header-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.app-name { color: var(--accent); font-weight: bold; letter-spacing: 2px; }
+.convo { font-weight: bold; margin-top: 2px; }
+.meta { display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; }
+.meta b { color: var(--text); }
+.conn.online { color: var(--mine); }
+.conn.offline { color: var(--error); }
+
+.messages {
+  flex: 1;
+  list-style: none;
+  margin: 8px 0;
+  padding: 8px 12px;
+  overflow-y: auto;
+  border-top: 1px dashed var(--border);
+  border-bottom: 1px dashed var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.msg { max-width: 80%; align-self: flex-start; }
+.msg.mine { align-self: flex-end; text-align: right; }
+.msg-head { font-size: 12px; color: var(--accent); letter-spacing: 1px; }
+.msg.mine .msg-head { color: var(--mine); }
+.msg-time { color: var(--muted); }
+.msg-text { white-space: pre-wrap; word-wrap: break-word; overflow-wrap: anywhere; }
+.tick { margin-left: 4px; color: var(--muted); }
+.tick.seen { color: var(--mine); }
+.typing { height: 18px; margin: -4px 0 4px; padding: 0 12px; font-size: 12px; color: var(--muted); font-style: italic; }
+.empty { color: var(--muted); text-align: center; margin: auto; font-size: 13px; }
+
+.composer {
+  display: flex;
+  gap: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  padding: 6px;
+}
+.composer input { flex: 1; border: none; background: transparent; }
+
+@media (max-width: 480px) {
+  body { font-size: 14px; }
+  .chat { padding: 4px; }
+  .msg { max-width: 90%; }
+}

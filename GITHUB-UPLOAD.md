@@ -1,16 +1,15 @@
 # GitHub-এ আপলোড করার নিয়ম
 
-ওয়েবসাইটের সব ফাইল **`site`** ফোল্ডারে রাখা আছে। শুধু এই ৪টা ফাইল আপলোড করবে:
+`chat` ফোল্ডারের **সব ফাইল** একসাথে আপলোড করলেই হবে। তবে এই ৪টা অবশ্যই থাকতে হবে, না হলে 404 দেখাবে:
 
 ```
-site/
-├── index.html
-├── style.css
-├── app.js
-└── firebase-config.js
+index.html
+style.css
+app.js
+firebase-config.js
 ```
 
-(`START.bat`, `server.ps1`, `README.md`, `database.rules.json` আপলোড করার দরকার নেই।)
+(বাকি ফাইলগুলো, যেমন `START.bat`, `server.ps1`, `README.md`, `database.rules.json`, আপলোড করলেও ক্ষতি নেই।)
 
 ---
 
@@ -26,10 +25,9 @@ site/
 
 1. নতুন repo পেজে **uploading an existing file** লিংকে ক্লিক করো।
    (অথবা **Add file → Upload files**)
-2. কম্পিউটারে `chat\site` ফোল্ডারটা খোলো।
-3. ভেতরের **৪টা ফাইল সিলেক্ট করে** browser-এ টেনে আনো।
-   ⚠️ `site` ফোল্ডারটা নয়, ভেতরের ফাইলগুলো, যাতে `index.html` repo-র একদম শুরুতে থাকে।
-4. নিচে **Commit changes** চাপো।
+2. কম্পিউটারে `chat` ফোল্ডারটা খোলো।
+3. **Ctrl + A** চেপে সব ফাইল সিলেক্ট করো, তারপর browser-এ টেনে আনো।
+4. নিচে ফাইলের তালিকায় `index.html` আছে কিনা দেখে নাও, তারপর **Commit changes** চাপো।
 
 ## ধাপ ৩: GitHub Pages চালু করো
 
@@ -59,5 +57,5 @@ Repo public হওয়ায় `firebase-config.js` সবাই দেখত
 আসলভাবে ব্যবহারের আগে `README.md`-এর **Private mode** ধাপগুলো করো:
 1. Firebase-এ Email/Password লগইন চালু করো, Anik আর Priya-র জন্য দুটো account বানাও।
 2. `database.rules.json`-এ দুজনের UID বসিয়ে Firebase Console-এ Rules publish করো।
-3. `site/firebase-config.js`-এ `USE_AUTH = true` করো আর দুজনের email বসাও, তারপর GitHub-এ আবার আপলোড করো।
+3. `firebase-config.js`-এ `USE_AUTH = true` করো আর দুজনের email বসাও, তারপর GitHub-এ আবার আপলোড করো।
 4. Firebase Console → **Authentication → Settings → Authorized domains**-এ `তোমার-username.github.io` যোগ করো।
