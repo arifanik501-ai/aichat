@@ -1,0 +1,53 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "messages": {
+      ".read": "auth != null && (auth.uid === 'ANIK_UID' || auth.uid === 'PRIYA_UID')",
+      ".write": "auth != null && (auth.uid === 'ANIK_UID' || auth.uid === 'PRIYA_UID') && !newData.exists()",
+      ".indexOn": ["timestamp"],
+      "$messageId": {
+        ".write": "!data.exists() && auth != null && ((auth.uid === 'ANIK_UID' && newData.child('sender').val() === 'anik' && newData.child('receiver').val() === 'priya') || (auth.uid === 'PRIYA_UID' && newData.child('sender').val() === 'priya' && newData.child('receiver').val() === 'anik'))",
+        ".validate": "newData.hasChildren(['sender', 'receiver', 'text', 'timestamp'])",
+        "sender":    { ".validate": "newData.isString()" },
+        "receiver":  { ".validate": "newData.isString()" },
+        "text":      { ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 1000" },
+        "timestamp": { ".validate": "newData.val() === now" },
+        "$other":    { ".validate": false }
+      }
+    },
+    "presence": {
+      ".read": "auth != null && (auth.uid === 'ANIK_UID' || auth.uid === 'PRIYA_UID')",
+      "$user": {
+        ".write": "auth != null && (($user === 'anik' && auth.uid === 'ANIK_UID') || ($user === 'priya' && auth.uid === 'PRIYA_UID'))",
+        "conns": { "$conn": { ".validate": "newData.val() === true" } },
+        "at": { ".validate": "newData.val() === now" },
+        "$other": { ".validate": false }
+      }
+    },
+    "typing": {
+      ".read": "auth != null && (auth.uid === 'ANIK_UID' || auth.uid === 'PRIYA_UID')",
+      "$user": {
+        ".write": "auth != null && (($user === 'anik' && auth.uid === 'ANIK_UID') || ($user === 'priya' && auth.uid === 'PRIYA_UID'))",
+        ".validate": "newData.isBoolean()"
+      }
+    },
+    "seen": {
+      ".read": "auth != null && (auth.uid === 'ANIK_UID' || auth.uid === 'PRIYA_UID')",
+      "$user": {
+        ".write": "auth != null && (($user === 'anik' && auth.uid === 'ANIK_UID') || ($user === 'priya' && auth.uid === 'PRIYA_UID'))",
+        ".validate": "newData.val() === now"
+      }
+    },
+    "control": {
+      "kill": {
+        ".read": "auth != null && (auth.uid === 'ANIK_UID' || auth.uid === 'PRIYA_UID')",
+        ".write": "auth != null && (auth.uid === 'ANIK_UID' || auth.uid === 'PRIYA_UID')",
+        ".validate": "newData.hasChildren(['id', 'at'])",
+        "id": { ".validate": "newData.isString() && newData.val().length <= 40" },
+        "at": { ".validate": "newData.val() === now" },
+        "$other": { ".validate": false }
+      }
+    }
+  }
+}
